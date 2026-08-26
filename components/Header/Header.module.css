@@ -1,0 +1,42 @@
+.header {
+  border-bottom: 1px solid #f2f4f7;
+  background-color: #ffffff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 72px;
+  margin: 0 auto;
+  padding: 0 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  color: #101828;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.link {
+  color: #101828;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #e44848;
+}

@@ -1,0 +1,47 @@
+.main {
+  min-height: calc(100vh - 72px);
+}
+
+.catalog {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 64px;
+}
+
+.title {
+  margin: 0 0 8px;
+}
+
+.count {
+  margin: 0 0 24px;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid #d0d5dd;
+  border-radius: 12px;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+}
+
+.card p {
+  margin: 0;
+}
+
+.loadMore {
+  display: block;
+  margin: 32px auto 0;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+.message {
+  padding: 40px 64px;
+}
