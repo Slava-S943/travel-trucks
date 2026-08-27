@@ -14,6 +14,7 @@ interface Filters {
   form: CamperForm | "";
   engine: Engine | "";
   transmission: Transmission | "";
+  tv: boolean;
 }
 
 const initialFilters: Filters = {
@@ -21,6 +22,7 @@ const initialFilters: Filters = {
   form: "",
   engine: "",
   transmission: "",
+  tv: false,
 };
 
 export default function Catalog() {
@@ -56,7 +58,10 @@ export default function Catalog() {
     },
   });
 
-  const handleFilterChange = (field: keyof Filters, value: string) => {
+  const handleFilterChange = (
+    field: keyof Filters,
+    value: string | boolean,
+  ) => {
     setFilters((currentFilters) => ({
       ...currentFilters,
       [field]: value,
@@ -84,7 +89,11 @@ export default function Catalog() {
     );
   }
 
-  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
+  const rawCampers = data?.pages.flatMap((page) => page.campers) ?? [];
+
+  const campers = appliedFilters.tv
+    ? rawCampers.filter((camper) => camper.amenities.includes("tv"))
+    : rawCampers;
 
   return (
     <main className={styles.main}>
@@ -148,6 +157,17 @@ export default function Catalog() {
               <option value="automatic">Automatic</option>
               <option value="manual">Manual</option>
             </select>
+          </label>
+
+          <label className={styles.filter}>
+            <input
+              type="checkbox"
+              checked={filters.tv}
+              onChange={(event) =>
+                handleFilterChange("tv", event.target.checked)
+              }
+            />
+            TV
           </label>
 
           <div className={styles.actions}>
