@@ -19,12 +19,39 @@ export type Amenity =
   | "gas"
   | "water";
 
+export interface CamperGalleryItem {
+  id: string;
+  camperId: string;
+  thumb: string;
+  original: string;
+  order: number;
+}
+
+export interface CamperReview {
+  id: string;
+  camperId: string;
+  reviewer_name: string;
+  reviewer_rating: number;
+  comment: string;
+  createdAt: string;
+}
+
+export interface BookingRequest {
+  name: string;
+  email: string;
+}
+
+export interface BookingResponse {
+  message: string;
+}
+
 export interface Camper {
   id: string;
   name: string;
   price: number;
   rating: number;
   location: string;
+  description: string;
   form: CamperForm;
   length: string;
   width: string;
@@ -35,6 +62,9 @@ export interface Camper {
   engine: Engine;
   amenities: Amenity[];
   coverImage: string;
+  gallery: CamperGalleryItem[];
+  createdAt: string;
+  updatedAt: string;
   totalReviews: number;
 }
 

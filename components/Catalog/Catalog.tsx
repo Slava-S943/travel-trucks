@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import type { CamperForm, Engine, Transmission } from "@/types/camper";
 import { getCampers } from "@/lib/api/campers";
+import CamperCard from "@/components/CamperCard/CamperCard";
 import styles from "./Catalog.module.css";
 
 const PER_PAGE = 4;
@@ -26,27 +27,34 @@ export default function Catalog() {
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [appliedFilters, setAppliedFilters] = useState<Filters>(initialFilters);
 
-  const { data, isLoading, isError, error, hasNextPage, fetchNextPage } =
-    useInfiniteQuery({
-      queryKey: ["campers", appliedFilters],
-      queryFn: ({ pageParam }) =>
-        getCampers({
-          page: pageParam,
-          perPage: PER_PAGE,
-          location: appliedFilters.location || undefined,
-          form: appliedFilters.form || undefined,
-          engine: appliedFilters.engine || undefined,
-          transmission: appliedFilters.transmission || undefined,
-        }),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => {
-        if (lastPage.page < lastPage.totalPages) {
-          return lastPage.page + 1;
-        }
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["campers", appliedFilters],
+    queryFn: ({ pageParam }) =>
+      getCampers({
+        page: pageParam,
+        perPage: PER_PAGE,
+        location: appliedFilters.location || undefined,
+        form: appliedFilters.form || undefined,
+        engine: appliedFilters.engine || undefined,
+        transmission: appliedFilters.transmission || undefined,
+      }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.totalPages) {
+        return lastPage.page + 1;
+      }
 
-        return undefined;
-      },
-    });
+      return undefined;
+    },
+  });
 
   const handleFilterChange = (field: keyof Filters, value: string) => {
     setFilters((currentFilters) => ({
@@ -165,10 +173,7 @@ export default function Catalog() {
 
         <div className={styles.list}>
           {campers.map((camper) => (
-            <article key={camper.id} className={styles.card}>
-              <h2>{camper.name}</h2>
-              <p>€{camper.price}</p>
-            </article>
+            <CamperCard key={camper.id} camper={camper} />
           ))}
         </div>
 
@@ -177,8 +182,17 @@ export default function Catalog() {
             type="button"
             className={styles.loadMore}
             onClick={() => fetchNextPage()}
+            disabled={isFetchingNextPage}
+            aria-busy={isFetchingNextPage}
           >
-            Load More
+            {isFetchingNextPage ? (
+              <>
+                <span className={styles.spinner} aria-hidden="true" />
+                Loading...
+              </>
+            ) : (
+              "Load More"
+            )}
           </button>
         )}
       </section>

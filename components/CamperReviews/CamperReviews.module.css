@@ -1,0 +1,19 @@
+.reviews {
+  margin-top: 40px;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.review {
+  margin-bottom: 24px;
+}
+
+.rating {
+  margin: 8px 0;
+}
+
+.message {
+  padding: 20px 0;
+}
