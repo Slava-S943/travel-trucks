@@ -1,38 +1,53 @@
 .main {
-  min-height: calc(100vh - 72px);
+  width: 100%;
 }
 
 .hero {
-  min-height: calc(100vh - 72px);
-  padding: 80px 64px;
+  position: relative;
 
-  display: flex;
-  align-items: center;
+  width: 100%;
+  height: calc(100vh - 72px);
 
-  background-image:
-    linear-gradient(rgba(16, 24, 40, 0.45), rgba(16, 24, 40, 0.45)),
-    url("/hero.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+
+  z-index: 0;
 }
 
 .content {
-  max-width: 600px;
-  color: #ffffff;
+  position: relative;
+  z-index: 2;
+
+  padding: 195px 64px 0;
+
+  max-width: 850px;
+
+  color: var(--white);
 }
 
 .title {
-  margin: 0 0 24px;
+  margin: 0;
+
+  font-family: var(--font-family);
+  font-weight: 600;
   font-size: 48px;
-  font-weight: 700;
   line-height: 1.1;
+
+  color: var(--inputs);
 }
 
 .description {
-  margin: 0 0 32px;
-  font-size: 20px;
-  line-height: 1.5;
+  margin: 24px 0 0;
+
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+
+  color: var(--inputs);
 }
 
 .button {
@@ -40,19 +55,32 @@
   align-items: center;
   justify-content: center;
 
-  min-width: 140px;
-  min-height: 48px;
-  padding: 0 24px;
+  width: 173px;
+  height: 56px;
 
+  margin-top: 40px;
+  padding: 16px 60px;
+
+  border: none;
   border-radius: 200px;
-  background-color: #e44848;
 
-  color: #ffffff;
-  font-size: 16px;
+  background: var(--grey-green);
+
+  font-family: var(--font-family);
   font-weight: 500;
-  text-decoration: none;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  text-align: center;
+
+  color: var(--white);
+
+  white-space: nowrap;
+
+  transition: background-color 200ms ease;
 }
 
-.button:hover {
-  background-color: #d33d3d;
+.button:hover,
+.button:focus-visible {
+  background: var(--green-hover);
 }

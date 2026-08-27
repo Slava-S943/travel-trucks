@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./Home.module.css";
 
@@ -5,6 +6,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
+        <Image
+          src="/hero.jpg"
+          alt="Camper van at sunset"
+          fill
+          priority
+          className={styles.image}
+        />
+
         <div className={styles.content}>
           <h1 className={styles.title}>Campers of your dreams</h1>
 
@@ -12,7 +21,12 @@ export default function Home() {
             You can find everything you want in our catalog
           </p>
 
-          <Link href="/catalog" className={styles.button}>
+          <Link
+            href="/catalog"
+            className={styles.button}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             View Now
           </Link>
         </div>

@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import type { CamperForm, Engine, Transmission } from "@/types/camper";
 import { getCampers } from "@/lib/api/campers";
 import CamperCard from "@/components/CamperCard/CamperCard";
+import Loader from "@/components/Loader/Loader";
 import styles from "./Catalog.module.css";
 
 const PER_PAGE = 4;
@@ -14,7 +16,6 @@ interface Filters {
   form: CamperForm | "";
   engine: Engine | "";
   transmission: Transmission | "";
-  tv: boolean;
 }
 
 const initialFilters: Filters = {
@@ -22,8 +23,65 @@ const initialFilters: Filters = {
   form: "",
   engine: "",
   transmission: "",
-  tv: false,
 };
+
+const camperForms: {
+  label: string;
+  value: CamperForm;
+}[] = [
+  {
+    label: "Alcove",
+    value: "alcove",
+  },
+  {
+    label: "Panel Van",
+    value: "panel_van",
+  },
+  {
+    label: "Integrated",
+    value: "integrated",
+  },
+  {
+    label: "Semi Integrated",
+    value: "semi_integrated",
+  },
+];
+
+const engines: {
+  label: string;
+  value: Engine;
+}[] = [
+  {
+    label: "Diesel",
+    value: "diesel",
+  },
+  {
+    label: "Petrol",
+    value: "petrol",
+  },
+  {
+    label: "Hybrid",
+    value: "hybrid",
+  },
+  {
+    label: "Electric",
+    value: "electric",
+  },
+];
+
+const transmissions: {
+  label: string;
+  value: Transmission;
+}[] = [
+  {
+    label: "Automatic",
+    value: "automatic",
+  },
+  {
+    label: "Manual",
+    value: "manual",
+  },
+];
 
 export default function Catalog() {
   const [filters, setFilters] = useState<Filters>(initialFilters);
@@ -58,10 +116,7 @@ export default function Catalog() {
     },
   });
 
-  const handleFilterChange = (
-    field: keyof Filters,
-    value: string | boolean,
-  ) => {
+  const handleFilterChange = (field: keyof Filters, value: string) => {
     setFilters((currentFilters) => ({
       ...currentFilters,
       [field]: value,
@@ -77,145 +132,241 @@ export default function Catalog() {
     setAppliedFilters(initialFilters);
   };
 
-  if (isLoading) {
-    return <p className={styles.message}>Loading campers...</p>;
-  }
-
   if (isError) {
     return (
-      <p className={styles.message}>
-        {error instanceof Error ? error.message : "Something went wrong."}
-      </p>
+      <main className={styles.main}>
+        {" "}
+        <p className={styles.message}>
+          {error instanceof Error
+            ? error.message
+            : "Something went wrong."}{" "}
+        </p>{" "}
+      </main>
     );
   }
 
-  const rawCampers = data?.pages.flatMap((page) => page.campers) ?? [];
-
-  const campers = appliedFilters.tv
-    ? rawCampers.filter((camper) => camper.amenities.includes("tv"))
-    : rawCampers;
+  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
 
   return (
-    <main className={styles.main}>
-      <section className={styles.catalog}>
-        <h1 className={styles.title}>Campers</h1>
+    <>
+      {isLoading && <Loader />}
 
-        <div className={styles.filters}>
-          <label className={styles.filter}>
-            Location
-            <input
-              type="text"
-              value={filters.location}
-              onChange={(event) =>
-                handleFilterChange("location", event.target.value)
-              }
-              placeholder="city"
-            />
-          </label>
+      <main className={styles.main}>
+        {" "}
+        <div className={styles.container}>
+          {" "}
+          <aside className={styles.sidebar}>
+            {" "}
+            <div className={styles.locationBlock}>
+              {" "}
+              <label htmlFor="location" className={styles.locationLabel}>
+                Location{" "}
+              </label>
+              <div className={styles.locationInputWrapper}>
+                <Image
+                  src="/icons/map.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className={styles.locationIcon}
+                  aria-hidden="true"
+                />
 
-          <label className={styles.filter}>
-            Body form
-            <select
-              value={filters.form}
-              onChange={(event) =>
-                handleFilterChange("form", event.target.value)
-              }
-            >
-              <option value="">All form</option>
-              <option value="alcove">Alcove</option>
-              <option value="panel_van">Panel van</option>
-              <option value="integrated">Integrated</option>
-              <option value="semi_integrated">Semi integrated</option>
-            </select>
-          </label>
+                <input
+                  id="location"
+                  type="text"
+                  value={filters.location}
+                  onChange={(event) =>
+                    handleFilterChange("location", event.target.value)
+                  }
+                  placeholder="Kyiv"
+                  className={styles.locationInput}
+                />
+              </div>
+            </div>
+            <h1 className={styles.filtersTitle}>Filters</h1>
+            <fieldset className={styles.filterGroup}>
+              <legend className={styles.groupTitle}>Camper form</legend>
 
-          <label className={styles.filter}>
-            Engine
-            <select
-              value={filters.engine}
-              onChange={(event) =>
-                handleFilterChange("engine", event.target.value)
-              }
-            >
-              <option value="">All engines</option>
-              <option value="diesel">Diesel</option>
-              <option value="petrol">Petrol</option>
-              <option value="hybrid">Hybrid</option>
-              <option value="electric">Electric</option>
-            </select>
-          </label>
+              <div className={styles.radioList}>
+                {camperForms.map((item) => (
+                  <label key={item.value} className={styles.radioLabel}>
+                    <span className={styles.radioWrapper}>
+                      <input
+                        type="radio"
+                        name="camper-form"
+                        value={item.value}
+                        checked={filters.form === item.value}
+                        onChange={(event) =>
+                          handleFilterChange("form", event.target.value)
+                        }
+                        className={styles.radioInput}
+                      />
 
-          <label className={styles.filter}>
-            Transmission
-            <select
-              value={filters.transmission}
-              onChange={(event) =>
-                handleFilterChange("transmission", event.target.value)
-              }
-            >
-              <option value="">All transmissions</option>
-              <option value="automatic">Automatic</option>
-              <option value="manual">Manual</option>
-            </select>
-          </label>
+                      <Image
+                        src="/icons/filter-circle.svg"
+                        alt=""
+                        width={24}
+                        height={24}
+                        className={styles.radioCircle}
+                        aria-hidden="true"
+                      />
 
-          <label className={styles.filter}>
-            <input
-              type="checkbox"
-              checked={filters.tv}
-              onChange={(event) =>
-                handleFilterChange("tv", event.target.checked)
-              }
-            />
-            TV
-          </label>
+                      {filters.form === item.value && (
+                        <Image
+                          src="/icons/filter-circle-checked.svg"
+                          alt=""
+                          width={14}
+                          height={14}
+                          className={styles.radioChecked}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </span>
 
-          <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.searchButton}
-              onClick={handleSearch}
-            >
-              Search
-            </button>
+                    <span className={styles.radioText}>{item.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset className={styles.filterGroup}>
+              <legend className={styles.groupTitle}>Engine</legend>
 
-            <button
-              type="button"
-              className={styles.resetButton}
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-          </div>
-        </div>
+              <div className={styles.radioList}>
+                {engines.map((item) => (
+                  <label key={item.value} className={styles.radioLabel}>
+                    <span className={styles.radioWrapper}>
+                      <input
+                        type="radio"
+                        name="engine"
+                        value={item.value}
+                        checked={filters.engine === item.value}
+                        onChange={(event) =>
+                          handleFilterChange("engine", event.target.value)
+                        }
+                        className={styles.radioInput}
+                      />
 
-        <p className={styles.count}>Found campers: {campers.length}</p>
+                      <Image
+                        src="/icons/filter-circle.svg"
+                        alt=""
+                        width={24}
+                        height={24}
+                        className={styles.radioCircle}
+                        aria-hidden="true"
+                      />
 
-        <div className={styles.list}>
-          {campers.map((camper) => (
-            <CamperCard key={camper.id} camper={camper} />
-          ))}
-        </div>
+                      {filters.engine === item.value && (
+                        <Image
+                          src="/icons/filter-circle-checked.svg"
+                          alt=""
+                          width={14}
+                          height={14}
+                          className={styles.radioChecked}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </span>
 
-        {hasNextPage && (
-          <button
-            type="button"
-            className={styles.loadMore}
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-            aria-busy={isFetchingNextPage}
-          >
-            {isFetchingNextPage ? (
-              <>
-                <span className={styles.spinner} aria-hidden="true" />
-                Loading...
-              </>
+                    <span className={styles.radioText}>{item.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset className={styles.filterGroup}>
+              <legend className={styles.groupTitle}>Transmission</legend>
+
+              <div className={styles.radioList}>
+                {transmissions.map((item) => (
+                  <label key={item.value} className={styles.radioLabel}>
+                    <span className={styles.radioWrapper}>
+                      <input
+                        type="radio"
+                        name="transmission"
+                        value={item.value}
+                        checked={filters.transmission === item.value}
+                        onChange={(event) =>
+                          handleFilterChange("transmission", event.target.value)
+                        }
+                        className={styles.radioInput}
+                      />
+
+                      <Image
+                        src="/icons/filter-circle.svg"
+                        alt=""
+                        width={24}
+                        height={24}
+                        className={styles.radioCircle}
+                        aria-hidden="true"
+                      />
+
+                      {filters.transmission === item.value && (
+                        <Image
+                          src="/icons/filter-circle-checked.svg"
+                          alt=""
+                          width={14}
+                          height={14}
+                          className={styles.radioChecked}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </span>
+
+                    <span className={styles.radioText}>{item.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.searchButton}
+                onClick={handleSearch}
+              >
+                Search
+              </button>
+
+              <button
+                type="button"
+                className={styles.clearButton}
+                onClick={handleReset}
+              >
+                <Image
+                  src="/icons/close.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  aria-hidden="true"
+                />
+                Clear filters
+              </button>
+            </div>
+          </aside>
+          <section className={styles.results}>
+            {campers.length > 0 ? (
+              <div className={styles.list}>
+                {campers.map((camper) => (
+                  <CamperCard key={camper.id} camper={camper} />
+                ))}
+              </div>
             ) : (
-              "Load More"
+              <p className={styles.emptyMessage}>No campers found.</p>
             )}
-          </button>
-        )}
-      </section>
-    </main>
+
+            {hasNextPage && (
+              <button
+                type="button"
+                className={styles.loadMore}
+                onClick={() => fetchNextPage()}
+                disabled={isFetchingNextPage}
+                aria-busy={isFetchingNextPage}
+              >
+                {isFetchingNextPage ? "Loading..." : "Load more"}
+              </button>
+            )}
+          </section>
+        </div>
+      </main>
+    </>
   );
 }

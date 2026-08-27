@@ -11,13 +11,17 @@ import type {
 
 const API_URL = "https://campers-api.goit.study";
 
-interface GetCampersParams {
+export interface GetCampersParams {
   page: number;
   perPage: number;
   location?: string;
   form?: CamperForm;
   transmission?: Transmission;
   engine?: Engine;
+  tv?: boolean;
+  AC?: boolean;
+  kitchen?: boolean;
+  bathroom?: boolean;
 }
 
 export async function getCampers({
@@ -27,33 +31,59 @@ export async function getCampers({
   form,
   transmission,
   engine,
+  tv,
+  AC,
+  kitchen,
+  bathroom,
 }: GetCampersParams): Promise<CampersResponse> {
   const searchParams = new URLSearchParams({
     page: String(page),
     perPage: String(perPage),
-    ...(location && { location }),
-    ...(form && { form }),
-    ...(transmission && { transmission }),
-    ...(engine && { engine }),
   });
 
-  const url = `${API_URL}/campers?${searchParams.toString()}`;
+  if (location) {
+    searchParams.set("location", location);
+  }
 
-  const response = await fetch(url);
+  if (form) {
+    searchParams.set("form", form);
+  }
+
+  if (transmission) {
+    searchParams.set("transmission", transmission);
+  }
+
+  if (engine) {
+    searchParams.set("engine", engine);
+  }
+
+  if (tv) {
+    searchParams.set("tv", "true");
+  }
+
+  if (AC) {
+    searchParams.set("AC", "true");
+  }
+
+  if (kitchen) {
+    searchParams.set("kitchen", "true");
+  }
+
+  if (bathroom) {
+    searchParams.set("bathroom", "true");
+  }
+
+  const response = await fetch(`${API_URL}/campers?${searchParams.toString()}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch campers");
   }
 
-  const data: CampersResponse = await response.json();
-
-  return data;
+  return response.json();
 }
 
 export async function getCamper(camperId: string): Promise<Camper> {
-  const url = `${API_URL}/campers/${camperId}`;
-
-  const response = await fetch(url);
+  const response = await fetch(`${API_URL}/campers/${camperId}`);
 
   if (!response.ok) {
     throw new Error(
@@ -61,9 +91,7 @@ export async function getCamper(camperId: string): Promise<Camper> {
     );
   }
 
-  const data: Camper = await response.json();
-
-  return data;
+  return response.json();
 }
 
 export async function getCamperReviews(
@@ -75,9 +103,7 @@ export async function getCamperReviews(
     throw new Error("Failed to fetch camper reviews");
   }
 
-  const data: CamperReview[] = await response.json();
-
-  return data;
+  return response.json();
 }
 
 export async function createBookingRequest(
@@ -88,9 +114,11 @@ export async function createBookingRequest(
     `${API_URL}/campers/${camperId}/booking-requests`,
     {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify(bookingData),
     },
   );
@@ -99,7 +127,5 @@ export async function createBookingRequest(
     throw new Error("Failed to create booking request");
   }
 
-  const data: BookingResponse = await response.json();
-
-  return data;
+  return response.json();
 }
