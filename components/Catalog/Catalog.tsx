@@ -155,7 +155,13 @@ export default function Catalog() {
         {" "}
         <div className={styles.container}>
           {" "}
-          <aside className={styles.sidebar}>
+          <form
+            className={styles.sidebar}
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSearch();
+            }}
+          >
             {" "}
             <div className={styles.locationBlock}>
               {" "}
@@ -164,7 +170,9 @@ export default function Catalog() {
               </label>
               <div className={styles.locationInputWrapper}>
                 <Image
-                  src="/icons/map.svg"
+                  src={
+                    filters.location ? "/icons/map.svg" : "/icons/map-gray.svg"
+                  }
                   alt=""
                   width={20}
                   height={20}
@@ -179,7 +187,7 @@ export default function Catalog() {
                   onChange={(event) =>
                     handleFilterChange("location", event.target.value)
                   }
-                  placeholder="Kyiv"
+                  placeholder="City"
                   className={styles.locationInput}
                 />
               </div>
@@ -318,11 +326,7 @@ export default function Catalog() {
               </div>
             </fieldset>
             <div className={styles.actions}>
-              <button
-                type="button"
-                className={styles.searchButton}
-                onClick={handleSearch}
-              >
+              <button type="submit" className={styles.searchButton}>
                 Search
               </button>
 
@@ -341,28 +345,75 @@ export default function Catalog() {
                 Clear filters
               </button>
             </div>
-          </aside>
+          </form>
           <section className={styles.results}>
-            {campers.length > 0 ? (
-              <div className={styles.list}>
-                {campers.map((camper) => (
-                  <CamperCard key={camper.id} camper={camper} />
-                ))}
+            {!isLoading && campers.length === 0 ? (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIllustration}>
+                  <Image
+                    src="/images/empty-campers.png"
+                    alt=""
+                    width={488}
+                    height={463}
+                    className={styles.emptyImage}
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <h2 className={styles.emptyTitle}>No campers found</h2>
+
+                <div className={styles.emptyDescription}>
+                  <p>We couldn`t find any campers that match your filters.</p>
+                  <p>Try adjusting your search or clearing some filters.</p>
+                </div>
+
+                <div className={styles.emptyActions}>
+                  <button
+                    type="button"
+                    className={styles.emptyClearButton}
+                    onClick={handleReset}
+                  >
+                    <Image
+                      src="/icons/close.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      aria-hidden="true"
+                    />
+                    Clear filters
+                  </button>
+
+                  <button
+                    type="button"
+                    className={styles.viewAllButton}
+                    onClick={handleReset}
+                  >
+                    View all campers
+                  </button>
+                </div>
               </div>
             ) : (
-              <p className={styles.emptyMessage}>No campers found.</p>
-            )}
+              <>
+                {campers.length > 0 && (
+                  <div className={styles.list}>
+                    {campers.map((camper) => (
+                      <CamperCard key={camper.id} camper={camper} />
+                    ))}
+                  </div>
+                )}
 
-            {hasNextPage && (
-              <button
-                type="button"
-                className={styles.loadMore}
-                onClick={() => fetchNextPage()}
-                disabled={isFetchingNextPage}
-                aria-busy={isFetchingNextPage}
-              >
-                {isFetchingNextPage ? "Loading..." : "Load more"}
-              </button>
+                {hasNextPage && (
+                  <button
+                    type="button"
+                    className={styles.loadMore}
+                    onClick={() => fetchNextPage()}
+                    disabled={isFetchingNextPage}
+                    aria-busy={isFetchingNextPage}
+                  >
+                    {isFetchingNextPage ? "Loading..." : "Load More"}
+                  </button>
+                )}
+              </>
             )}
           </section>
         </div>

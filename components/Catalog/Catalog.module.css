@@ -5,14 +5,11 @@
 
 .container {
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-
-  padding: 36px 64px 48px;
+  padding: 36px 64px 48px 63px;
 
   display: grid;
   grid-template-columns: 360px minmax(0, 1fr);
-  gap: 64px;
+  gap: 65px;
 
   align-items: start;
 }
@@ -88,6 +85,14 @@
 }
 
 .locationInput::placeholder {
+  font-family: var(--font-family);
+
+  font-weight: 400;
+
+  font-size: 16px;
+
+  line-height: 150%;
+
   color: var(--gray);
 }
 
@@ -183,14 +188,6 @@
   pointer-events: none;
 }
 
-.radioInput:focus-visible + .radioCircle {
-  outline: 2px solid var(--grey-green);
-
-  outline-offset: 2px;
-
-  border-radius: 50%;
-}
-
 .radioText {
   color: var(--main);
 
@@ -256,11 +253,135 @@
 
 .clearButton:hover,
 .clearButton:focus-visible {
-  border-color: var(--main);
+  border: 1px solid var(--green-hover);
 }
 
 .results {
   min-width: 0;
+  width: 100%;
+}
+
+.emptyState {
+  width: 100%;
+  height: 826px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 20px;
+  background: var(--inputs);
+}
+
+.emptyImage {
+  display: block;
+  width: 488px;
+  height: 463px;
+
+  flex-shrink: 0;
+}
+
+.emptyTitle {
+  margin-top: 21px;
+
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  text-align: center;
+  color: var(--main);
+}
+
+.emptyDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 12px;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--main);
+}
+
+.emptyActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin-top: 43px;
+}
+
+.emptyClearButton,
+.viewAllButton {
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 200px;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.emptyClearButton {
+  width: 192px;
+  height: 56px;
+  padding: 16px 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 1px solid var(--gray-light);
+  border-radius: 200px;
+
+  background: var(--white);
+  color: var(--main);
+}
+
+.emptyClearButton:hover,
+.emptyClearButton:focus-visible {
+  border-color: var(--green-hover);
+}
+
+.viewAllButton {
+  width: 192px;
+  height: 56px;
+  padding: 16px 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 200px;
+
+  background: var(--grey-green);
+  color: var(--white);
+
+  white-space: nowrap;
+}
+
+.viewAllButton:hover,
+.viewAllButton:focus-visible {
+  border-color: var(--green-hover);
+  background: var(--green-hover);
 }
 
 .list {
@@ -298,7 +419,7 @@
 
 .loadMore:hover:not(:disabled),
 .loadMore:focus-visible:not(:disabled) {
-  border-color: var(--main);
+  border: 1px solid var(--green-hover);
 }
 
 .loadMore:disabled {
@@ -306,11 +427,9 @@
   opacity: 0.7;
 }
 
-.message,
-.emptyMessage {
+.message {
   padding: 40px 64px;
 
   color: var(--text);
-
   text-align: center;
 }
