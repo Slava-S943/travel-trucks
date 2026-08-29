@@ -1,15 +1,39 @@
 .gallery {
-  width: 100%;
+  width: 638px;
 }
 
-.imageWrapper {
+.mainImageWrapper {
   position: relative;
-  width: 100%;
-  height: 500px;
+
+  width: 638px;
+  height: 505px;
+
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 17px;
 }
 
-.image {
+.mainImage {
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+
+  margin-top: 27px;
+}
+
+.thumbnailWrapper {
+  position: relative;
+
+  width: 135px;
+  height: 144px;
+
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.thumbnailImage {
   object-fit: cover;
 }

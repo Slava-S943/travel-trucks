@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+
 import { createBookingRequest } from "@/lib/api/campers";
 import type { BookingRequest } from "@/types/camper";
+
+import BookingFields from "./BookingFields";
+import BookingToast from "./BookingToast";
+import { validateEmail, validateName } from "./validation";
+
 import styles from "./BookingForm.module.css";
 
 interface BookingFormProps {
   camperId: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
 }
 
 export default function BookingForm({ camperId }: BookingFormProps) {
@@ -16,10 +27,28 @@ export default function BookingForm({ camperId }: BookingFormProps) {
     email: "",
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+
   const mutation = useMutation({
     mutationFn: (bookingData: BookingRequest) =>
       createBookingRequest(camperId, bookingData),
+    onSuccess: () => {
+      setShowSuccessToast(true);
+    },
   });
+
+  useEffect(() => {
+    if (!showSuccessToast) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setShowSuccessToast(false);
+    }, 3000);
+
+    return () => window.clearTimeout(timer);
+  }, [showSuccessToast]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -28,63 +57,119 @@ export default function BookingForm({ camperId }: BookingFormProps) {
       ...currentForm,
       [name]: value,
     }));
+
+    if (name === "name") {
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        name: undefined,
+      }));
+    }
+
+    if (name === "email") {
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        email: undefined,
+      }));
+    }
+
+    if (mutation.isError) {
+      mutation.reset();
+    }
   };
 
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    if (name === "name" && value.trim()) {
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        name: validateName(value),
+      }));
+    }
+
+    if (name === "email" && value.trim()) {
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        email: validateEmail(value),
+      }));
+    }
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    mutation.mutate(form);
+    const name = form.name.trim();
+    const email = form.email.trim();
+
+    const nameError = validateName(name);
+    const emailError = validateEmail(email);
+
+    const nextErrors: FormErrors = {
+      ...(nameError && { name: nameError }),
+      ...(emailError && { email: emailError }),
+    };
+
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    mutation.mutate({
+      name,
+      email,
+    });
   };
 
+  const hasErrors = Boolean(errors.name || errors.email);
+
   return (
-    <section className={styles.booking}>
-      <h2 className={styles.title}>Book your camper</h2>
+    <>
+      <section
+        className={`${styles.booking} ${hasErrors ? styles.bookingError : ""}`}
+      >
+        <div className={styles.content}>
+          <h2 className={styles.title}>Book your campervan now</h2>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <label className={styles.label}>
-          Name
-          <input
-            className={styles.input}
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          <p className={styles.subtitle}>
+            Stay connected! We are always ready to help you.
+          </p>
 
-        <label className={styles.label}>
-          Email
-          <input
-            className={styles.input}
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          <form className={styles.form} onSubmit={handleSubmit} noValidate>
+            <BookingFields
+              name={form.name}
+              email={form.email}
+              nameError={errors.name}
+              emailError={errors.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
-        <button
-          className={styles.button}
-          type="submit"
-          disabled={mutation.isPending}
-        >
-          {mutation.isPending ? "Sending..." : "Book now"}
-        </button>
-      </form>
+            <button
+              className={styles.button}
+              type="submit"
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? "Sending..." : "Send"}
+            </button>
+          </form>
 
-      {mutation.isSuccess && mutation.data && (
-        <p className={styles.success}>{mutation.data.message}</p>
+          {mutation.isError && (
+            <p className={styles.error}>
+              {mutation.error instanceof Error
+                ? mutation.error.message
+                : "Something went wrong."}
+            </p>
+          )}
+        </div>
+      </section>
+
+      {showSuccessToast && (
+        <BookingToast
+          title="Booking successful"
+          message="Your booking request has been sent successfully."
+        />
       )}
-
-      {mutation.isError && (
-        <p className={styles.error}>
-          {mutation.error instanceof Error
-            ? mutation.error.message
-            : "Something went wrong."}
-        </p>
-      )}
-    </section>
+    </>
   );
 }

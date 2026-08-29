@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import type { CamperGalleryItem } from "@/types/camper";
 import styles from "./CamperGallery.module.css";
 
@@ -11,21 +9,37 @@ interface CamperGalleryProps {
 }
 
 export default function CamperGallery({ gallery }: CamperGalleryProps) {
+  const mainImage = gallery[0];
+
+  if (!mainImage) {
+    return null;
+  }
+
   return (
-    <Swiper className={styles.gallery} spaceBetween={16} slidesPerView={1}>
-      {gallery.map((image) => (
-        <SwiperSlide key={image.id}>
-          <div className={styles.imageWrapper}>
+    <div className={styles.gallery}>
+      <div className={styles.mainImageWrapper}>
+        <Image
+          src={mainImage.original}
+          alt="Camper"
+          fill
+          className={styles.mainImage}
+          sizes="638px"
+        />
+      </div>
+
+      <div className={styles.thumbnails}>
+        {gallery.slice(0, 4).map((image) => (
+          <div key={image.id} className={styles.thumbnailWrapper}>
             <Image
               src={image.original}
-              alt="Camper"
+              alt=""
               fill
-              className={styles.image}
-              sizes="(max-width: 768px) 100vw, 1200px"
+              className={styles.thumbnailImage}
+              sizes="140px"
             />
           </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+        ))}
+      </div>
+    </div>
   );
 }
