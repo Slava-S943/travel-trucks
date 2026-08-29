@@ -3,10 +3,19 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+
 import type { CamperForm, Engine, Transmission } from "@/types/camper";
+
 import { getCampers } from "@/lib/api/campers";
+
 import CamperCard from "@/components/CamperCard/CamperCard";
 import Loader from "@/components/Loader/Loader";
+
+import FilterRadioGroup from "./FilterRadioGroup";
+import EmptyState from "./EmptyState";
+
+import { camperForms, engines, transmissions } from "./catalogFilters";
+
 import styles from "./Catalog.module.css";
 
 const PER_PAGE = 4;
@@ -25,66 +34,9 @@ const initialFilters: Filters = {
   transmission: "",
 };
 
-const camperForms: {
-  label: string;
-  value: CamperForm;
-}[] = [
-  {
-    label: "Alcove",
-    value: "alcove",
-  },
-  {
-    label: "Panel Van",
-    value: "panel_van",
-  },
-  {
-    label: "Integrated",
-    value: "integrated",
-  },
-  {
-    label: "Semi Integrated",
-    value: "semi_integrated",
-  },
-];
-
-const engines: {
-  label: string;
-  value: Engine;
-}[] = [
-  {
-    label: "Diesel",
-    value: "diesel",
-  },
-  {
-    label: "Petrol",
-    value: "petrol",
-  },
-  {
-    label: "Hybrid",
-    value: "hybrid",
-  },
-  {
-    label: "Electric",
-    value: "electric",
-  },
-];
-
-const transmissions: {
-  label: string;
-  value: Transmission;
-}[] = [
-  {
-    label: "Automatic",
-    value: "automatic",
-  },
-  {
-    label: "Manual",
-    value: "manual",
-  },
-];
-
 export default function Catalog() {
   const [filters, setFilters] = useState<Filters>(initialFilters);
+
   const [appliedFilters, setAppliedFilters] = useState<Filters>(initialFilters);
 
   const {
@@ -97,6 +49,7 @@ export default function Catalog() {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["campers", appliedFilters],
+
     queryFn: ({ pageParam }) =>
       getCampers({
         page: pageParam,
@@ -106,7 +59,9 @@ export default function Catalog() {
         engine: appliedFilters.engine || undefined,
         transmission: appliedFilters.transmission || undefined,
       }),
+
     initialPageParam: 1,
+
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.totalPages) {
         return lastPage.page + 1;
@@ -115,6 +70,8 @@ export default function Catalog() {
       return undefined;
     },
   });
+
+  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
 
   const handleFilterChange = (field: keyof Filters, value: string) => {
     setFilters((currentFilters) => ({
@@ -135,26 +92,19 @@ export default function Catalog() {
   if (isError) {
     return (
       <main className={styles.main}>
-        {" "}
         <p className={styles.message}>
-          {error instanceof Error
-            ? error.message
-            : "Something went wrong."}{" "}
-        </p>{" "}
+          {error instanceof Error ? error.message : "Something went wrong."}
+        </p>
       </main>
     );
   }
-
-  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
 
   return (
     <>
       {isLoading && <Loader />}
 
       <main className={styles.main}>
-        {" "}
         <div className={styles.container}>
-          {" "}
           <form
             className={styles.sidebar}
             onSubmit={(event) => {
@@ -162,12 +112,11 @@ export default function Catalog() {
               handleSearch();
             }}
           >
-            {" "}
             <div className={styles.locationBlock}>
-              {" "}
               <label htmlFor="location" className={styles.locationLabel}>
-                Location{" "}
+                Location
               </label>
+
               <div className={styles.locationInputWrapper}>
                 <Image
                   src={
@@ -192,139 +141,33 @@ export default function Catalog() {
                 />
               </div>
             </div>
+
             <h1 className={styles.filtersTitle}>Filters</h1>
-            <fieldset className={styles.filterGroup}>
-              <legend className={styles.groupTitle}>Camper form</legend>
 
-              <div className={styles.radioList}>
-                {camperForms.map((item) => (
-                  <label key={item.value} className={styles.radioLabel}>
-                    <span className={styles.radioWrapper}>
-                      <input
-                        type="radio"
-                        name="camper-form"
-                        value={item.value}
-                        checked={filters.form === item.value}
-                        onChange={(event) =>
-                          handleFilterChange("form", event.target.value)
-                        }
-                        className={styles.radioInput}
-                      />
+            <FilterRadioGroup
+              name="camper-form"
+              title="Camper form"
+              value={filters.form}
+              options={camperForms}
+              onChange={(value) => handleFilterChange("form", value)}
+            />
 
-                      <Image
-                        src="/icons/filter-circle.svg"
-                        alt=""
-                        width={24}
-                        height={24}
-                        className={styles.radioCircle}
-                        aria-hidden="true"
-                      />
+            <FilterRadioGroup
+              name="engine"
+              title="Engine"
+              value={filters.engine}
+              options={engines}
+              onChange={(value) => handleFilterChange("engine", value)}
+            />
 
-                      {filters.form === item.value && (
-                        <Image
-                          src="/icons/filter-circle-checked.svg"
-                          alt=""
-                          width={14}
-                          height={14}
-                          className={styles.radioChecked}
-                          aria-hidden="true"
-                        />
-                      )}
-                    </span>
+            <FilterRadioGroup
+              name="transmission"
+              title="Transmission"
+              value={filters.transmission}
+              options={transmissions}
+              onChange={(value) => handleFilterChange("transmission", value)}
+            />
 
-                    <span className={styles.radioText}>{item.label}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-            <fieldset className={styles.filterGroup}>
-              <legend className={styles.groupTitle}>Engine</legend>
-
-              <div className={styles.radioList}>
-                {engines.map((item) => (
-                  <label key={item.value} className={styles.radioLabel}>
-                    <span className={styles.radioWrapper}>
-                      <input
-                        type="radio"
-                        name="engine"
-                        value={item.value}
-                        checked={filters.engine === item.value}
-                        onChange={(event) =>
-                          handleFilterChange("engine", event.target.value)
-                        }
-                        className={styles.radioInput}
-                      />
-
-                      <Image
-                        src="/icons/filter-circle.svg"
-                        alt=""
-                        width={24}
-                        height={24}
-                        className={styles.radioCircle}
-                        aria-hidden="true"
-                      />
-
-                      {filters.engine === item.value && (
-                        <Image
-                          src="/icons/filter-circle-checked.svg"
-                          alt=""
-                          width={14}
-                          height={14}
-                          className={styles.radioChecked}
-                          aria-hidden="true"
-                        />
-                      )}
-                    </span>
-
-                    <span className={styles.radioText}>{item.label}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-            <fieldset className={styles.filterGroup}>
-              <legend className={styles.groupTitle}>Transmission</legend>
-
-              <div className={styles.radioList}>
-                {transmissions.map((item) => (
-                  <label key={item.value} className={styles.radioLabel}>
-                    <span className={styles.radioWrapper}>
-                      <input
-                        type="radio"
-                        name="transmission"
-                        value={item.value}
-                        checked={filters.transmission === item.value}
-                        onChange={(event) =>
-                          handleFilterChange("transmission", event.target.value)
-                        }
-                        className={styles.radioInput}
-                      />
-
-                      <Image
-                        src="/icons/filter-circle.svg"
-                        alt=""
-                        width={24}
-                        height={24}
-                        className={styles.radioCircle}
-                        aria-hidden="true"
-                      />
-
-                      {filters.transmission === item.value && (
-                        <Image
-                          src="/icons/filter-circle-checked.svg"
-                          alt=""
-                          width={14}
-                          height={14}
-                          className={styles.radioChecked}
-                          aria-hidden="true"
-                        />
-                      )}
-                    </span>
-
-                    <span className={styles.radioText}>{item.label}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
             <div className={styles.actions}>
               <button type="submit" className={styles.searchButton}>
                 Search
@@ -346,52 +189,10 @@ export default function Catalog() {
               </button>
             </div>
           </form>
+
           <section className={styles.results}>
             {!isLoading && campers.length === 0 ? (
-              <div className={styles.emptyState}>
-                <div className={styles.emptyIllustration}>
-                  <Image
-                    src="/images/empty-campers.png"
-                    alt=""
-                    width={488}
-                    height={463}
-                    className={styles.emptyImage}
-                    aria-hidden="true"
-                  />
-                </div>
-
-                <h2 className={styles.emptyTitle}>No campers found</h2>
-
-                <div className={styles.emptyDescription}>
-                  <p>We couldn`t find any campers that match your filters.</p>
-                  <p>Try adjusting your search or clearing some filters.</p>
-                </div>
-
-                <div className={styles.emptyActions}>
-                  <button
-                    type="button"
-                    className={styles.emptyClearButton}
-                    onClick={handleReset}
-                  >
-                    <Image
-                      src="/icons/close.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      aria-hidden="true"
-                    />
-                    Clear filters
-                  </button>
-
-                  <button
-                    type="button"
-                    className={styles.viewAllButton}
-                    onClick={handleReset}
-                  >
-                    View all campers
-                  </button>
-                </div>
-              </div>
+              <EmptyState onClear={handleReset} />
             ) : (
               <>
                 {campers.length > 0 && (
