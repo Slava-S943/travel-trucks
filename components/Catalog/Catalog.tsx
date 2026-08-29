@@ -142,7 +142,9 @@ export default function Catalog() {
               </div>
             </div>
 
-            <h1 className={styles.filtersTitle}>Filters</h1>
+            <h1 className={styles.visuallyHidden}>Camper catalog</h1>
+
+            <h2 className={styles.filtersTitle}>Filters</h2>
 
             <FilterRadioGroup
               name="camper-form"
@@ -190,7 +192,7 @@ export default function Catalog() {
             </div>
           </form>
 
-          <section className={styles.results}>
+          <section className={styles.results} aria-label="Available campers">
             {!isLoading && campers.length === 0 ? (
               <EmptyState onClear={handleReset} />
             ) : (

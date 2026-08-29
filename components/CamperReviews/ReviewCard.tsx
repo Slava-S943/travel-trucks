@@ -21,6 +21,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
 
           <div
             className={styles.rating}
+            role="img"
             aria-label={`Rating: ${review.reviewer_rating} out of 5`}
           >
             {Array.from({ length: 5 }, (_, index) => (
