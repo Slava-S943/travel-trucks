@@ -31,6 +31,7 @@ export default function BookingFields({
           className={styles.input}
           type="text"
           name="name"
+          autoComplete="name"
           value={name}
           onChange={onChange}
           onBlur={onBlur}
@@ -67,6 +68,7 @@ export default function BookingFields({
           className={styles.input}
           type="email"
           name="email"
+          autoComplete="email"
           value={email}
           onChange={onChange}
           onBlur={onBlur}
