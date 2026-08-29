@@ -1,7 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
+
 import type { CamperGalleryItem } from "@/types/camper";
+
 import styles from "./CamperGallery.module.css";
 
 interface CamperGalleryProps {
@@ -9,36 +12,55 @@ interface CamperGalleryProps {
 }
 
 export default function CamperGallery({ gallery }: CamperGalleryProps) {
-  const mainImage = gallery[0];
+  const [selectedImage, setSelectedImage] = useState<CamperGalleryItem | null>(
+    gallery[0] ?? null,
+  );
 
-  if (!mainImage) {
+  if (!selectedImage) {
     return null;
   }
+
+  const thumbnails = gallery.slice(0, 4);
 
   return (
     <div className={styles.gallery}>
       <div className={styles.mainImageWrapper}>
         <Image
-          src={mainImage.original}
+          src={selectedImage.original}
           alt="Camper"
           fill
           className={styles.mainImage}
           sizes="638px"
+          loading="eager"
         />
       </div>
 
       <div className={styles.thumbnails}>
-        {gallery.slice(0, 4).map((image) => (
-          <div key={image.id} className={styles.thumbnailWrapper}>
-            <Image
-              src={image.original}
-              alt=""
-              fill
-              className={styles.thumbnailImage}
-              sizes="140px"
-            />
-          </div>
-        ))}
+        {thumbnails.map((image) => {
+          const isSelected = image.id === selectedImage.id;
+
+          return (
+            <button
+              key={image.id}
+              type="button"
+              className={`${styles.thumbnailWrapper} ${
+                isSelected ? styles.thumbnailActive : ""
+              }`}
+              onClick={() => setSelectedImage(image)}
+              aria-label={`Show image ${image.order + 1}`}
+              aria-pressed={isSelected}
+            >
+              <Image
+                src={image.original}
+                alt=""
+                fill
+                className={styles.thumbnailImage}
+                sizes="140px"
+                loading={image.id === gallery[0]?.id ? "eager" : "lazy"}
+              />
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -14,9 +14,13 @@ import styles from "./CamperCard.module.css";
 
 interface CamperCardProps {
   camper: Camper;
+  priority?: boolean;
 }
 
-export default function CamperCard({ camper }: CamperCardProps) {
+export default function CamperCard({
+  camper,
+  priority = false,
+}: CamperCardProps) {
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -26,6 +30,7 @@ export default function CamperCard({ camper }: CamperCardProps) {
           fill
           className={styles.image}
           sizes="(max-width: 900px) 100vw, 270px"
+          priority={priority}
         />
       </div>
 

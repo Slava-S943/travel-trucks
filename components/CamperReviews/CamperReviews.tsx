@@ -6,6 +6,7 @@ import { getCamperReviews } from "@/lib/api/campers";
 
 import ReviewCard from "./ReviewCard";
 
+import Loader from "@/components/Loader/Loader";
 import styles from "./CamperReviews.module.css";
 
 interface CamperReviewsProps {
@@ -24,7 +25,7 @@ export default function CamperReviews({ camperId }: CamperReviewsProps) {
   });
 
   if (isLoading) {
-    return <p className={styles.message}>Loading reviews...</p>;
+    return <Loader />;
   }
 
   if (isError) {

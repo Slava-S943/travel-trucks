@@ -199,8 +199,12 @@ export default function Catalog() {
               <>
                 {campers.length > 0 && (
                   <div className={styles.list}>
-                    {campers.map((camper) => (
-                      <CamperCard key={camper.id} camper={camper} />
+                    {campers.map((camper, index) => (
+                      <CamperCard
+                        key={camper.id}
+                        camper={camper}
+                        priority={index === 0}
+                      />
                     ))}
                   </div>
                 )}

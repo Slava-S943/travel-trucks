@@ -11,6 +11,7 @@ import BookingForm from "@/components/BookingForm/BookingForm";
 import CamperInfo from "./CamperInfo";
 import VehicleDetails from "./VehicleDetails";
 
+import Loader from "@/components/Loader/Loader";
 import styles from "./CamperDetails.module.css";
 
 interface CamperDetailsProps {
@@ -29,7 +30,7 @@ export default function CamperDetails({ camperId }: CamperDetailsProps) {
   });
 
   if (isLoading) {
-    return <p className={styles.message}>Loading camper...</p>;
+    return <Loader />;
   }
 
   if (isError) {
