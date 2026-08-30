@@ -19,7 +19,7 @@ export default function CamperBadge({ icon, label }: CamperBadgeProps) {
         aria-hidden="true"
       />
 
-      {label}
+      <span className={styles.badgeLabel}>{label}</span>
     </span>
   );
 }

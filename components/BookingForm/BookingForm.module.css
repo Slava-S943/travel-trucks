@@ -230,3 +230,105 @@
   line-height: 150%;
   color: var(--text);
 }
+
+/* Tablet */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .booking {
+    height: auto;
+    min-height: 384px;
+
+    margin-top: 40px;
+
+    padding: 36px 40px;
+  }
+
+  .bookingError {
+    height: auto;
+    min-height: 384px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .booking {
+    height: auto;
+    min-height: 0;
+
+    margin-top: 32px;
+
+    padding: 24px 20px;
+
+    border-radius: 16px;
+  }
+
+  .bookingError {
+    height: auto;
+    min-height: 0;
+  }
+
+  .title {
+    margin-bottom: 8px;
+
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  .subtitle {
+    margin-bottom: 20px;
+
+    font-size: 15px;
+  }
+
+  .field + .field {
+    margin-top: 12px;
+  }
+
+  .input {
+    height: 56px;
+
+    padding: 16px;
+
+    font-size: 15px;
+  }
+
+  .fieldError .label {
+    left: 16px;
+
+    font-size: 13px;
+  }
+
+  .errorIcon {
+    right: 16px;
+  }
+
+  .errorMessage {
+    font-size: 14px;
+  }
+
+  .button {
+    height: 52px;
+
+    min-height: 52px;
+
+    margin-top: 20px;
+
+    padding: 14px 32px;
+  }
+
+  .error {
+    margin-top: 16px;
+
+    font-size: 14px;
+  }
+
+  .successToast {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+
+    min-width: 0;
+    max-width: none;
+
+    padding: 14px 16px;
+  }
+}

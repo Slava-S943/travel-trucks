@@ -6,10 +6,9 @@
 .details {
   width: 100%;
 }
-
 .topSection {
   display: grid;
-  grid-template-columns: 638px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 24px;
   align-items: start;
 }
@@ -134,7 +133,6 @@
   width: 100%;
   height: 1px;
   margin: 16px 0;
-
   background: var(--gray-light);
 }
 
@@ -163,9 +161,10 @@
 
 .bottomSection {
   display: grid;
-  grid-template-columns: minmax(0, 616px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 48px;
   align-items: start;
+
   margin-top: 72px;
 }
 
@@ -178,4 +177,116 @@
   font-size: 16px;
   line-height: 150%;
   color: var(--text);
+}
+
+/* ========================================
+   TABLET: 768px - 1199px
+   ======================================== */
+
+@media (max-width: 1199px) {
+  .main {
+    padding: 40px 32px 48px;
+  }
+
+  .topSection {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .galleryColumn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .infoColumn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .camperInfo {
+    height: auto;
+  }
+
+  .bottomSection {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    margin-top: 56px;
+  }
+}
+
+/* ========================================
+   MOBILE: 0px - 767px
+   ======================================== */
+
+@media (max-width: 767px) {
+  .main {
+    padding: 24px 20px 40px;
+  }
+
+  .topSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .galleryColumn,
+  .infoColumn {
+    width: 100%;
+  }
+
+  .camperInfo {
+    height: auto;
+    padding: 20px;
+
+    border-radius: 16px;
+  }
+
+  .vehicleDetails {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .title,
+  .vehicleTitle {
+    font-size: 22px;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .price {
+    font-size: 22px;
+  }
+
+  .description {
+    margin-top: 20px;
+  }
+
+  .amenity {
+    height: 44px;
+    padding: 10px 16px;
+    font-size: 15px;
+  }
+
+  .specification {
+    gap: 16px;
+    text-align: left;
+  }
+
+  .bottomSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    margin-top: 40px;
+  }
+
+  .message {
+    padding: 32px 20px;
+  }
 }

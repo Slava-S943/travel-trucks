@@ -16,13 +16,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label="TravelTrucks home">
-          <Image
-            src="/logo.svg"
-            alt="TravelTrucks"
-            width={136}
-            height={16}
-            priority
-          />
+          <Image src="/logo.svg" alt="TravelTrucks" width={136} height={16} />
         </Link>
 
         <nav className={styles.navigation} aria-label="Main navigation">

@@ -107,3 +107,84 @@
   line-height: 150%;
   color: var(--text);
 }
+/* Tablet */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .reviews {
+    width: 100%;
+  }
+
+  .reviewsList {
+    height: auto;
+  }
+
+  .review {
+    height: auto;
+    min-height: 180px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .title {
+    margin-bottom: 20px;
+
+    font-size: 22px;
+  }
+
+  .reviewsList {
+    height: auto;
+    gap: 16px;
+  }
+
+  .review {
+    height: auto;
+    min-height: 0;
+
+    padding: 16px;
+
+    border-radius: 16px;
+  }
+
+  .reviewHeader {
+    gap: 12px;
+  }
+
+  .reviewAvatar {
+    width: 52px;
+    height: 52px;
+
+    font-size: 21px;
+  }
+
+  .reviewerInfo {
+    padding-top: 4px;
+  }
+
+  .reviewerName {
+    font-size: 15px;
+  }
+
+  .rating {
+    gap: 3px;
+
+    margin-top: 3px;
+  }
+
+  .rating img {
+    width: 14px;
+    height: 13px;
+  }
+
+  .comment {
+    margin-top: 14px;
+
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .message {
+    padding: 16px 0;
+
+    font-size: 15px;
+  }
+}

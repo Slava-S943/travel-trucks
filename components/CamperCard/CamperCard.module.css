@@ -6,7 +6,9 @@
   gap: 24px;
 
   width: 100%;
-  height: 312px;
+
+  min-height: 312px;
+  height: auto;
 
   padding: 24px;
 
@@ -19,7 +21,9 @@
   position: relative;
 
   width: 219px;
+
   height: 240px;
+
   min-height: 240px;
 
   overflow: hidden;
@@ -40,61 +44,86 @@
 
 .topRow {
   display: flex;
+
   align-items: flex-start;
+
   justify-content: space-between;
+
   gap: 24px;
 }
 
 .name {
+  flex: 1;
+
   min-width: 0;
 
   color: var(--main);
+
   font-size: 20px;
+
   font-weight: 600;
+
   line-height: 1.25;
 }
 
 .price {
   flex-shrink: 0;
 
+  white-space: nowrap;
+
   margin: 0;
 
   color: var(--main);
+
   font-size: 20px;
+
   font-weight: 700;
+
   line-height: 1.25;
 }
 
 .meta {
   display: flex;
+
   flex-wrap: wrap;
+
   align-items: center;
+
   gap: 18px;
 
   margin-top: 8px;
 
   font-family: var(--font-family);
+
   font-weight: 400;
+
   font-size: 16px;
+
   line-height: 150%;
+
   color: var(--main);
 }
 
 .rating,
 .location {
   display: inline-flex;
+
   align-items: center;
+
   gap: 4px;
 }
 
 .starIcon {
   width: 15px;
+
   height: 14px;
+
   flex-shrink: 0;
 }
 
 .metaIcon {
   width: 16px;
+
   height: 16px;
 }
 
@@ -102,12 +131,17 @@
   margin: 24px 0 0;
 
   font-family: var(--font-family);
+
   font-weight: 400;
+
   font-size: 16px;
+
   line-height: 150%;
 
   white-space: nowrap;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
 
   color: var(--text);
@@ -115,54 +149,82 @@
 
 .details {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
-
   margin-top: 24px;
+  min-width: 0;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
 
-  width: fit-content;
-  min-width: 109px;
+  width: auto;
+  max-width: max-content;
+  min-width: 0;
+
+  flex: 1 1 auto;
+
   height: 48px;
   padding: 12px 18px;
 
   border-radius: 100px;
 
   background: var(--badges);
+
   mix-blend-mode: multiply;
 
   color: var(--main);
 
   font-size: 14px;
   line-height: 1;
+
   white-space: nowrap;
+
+  overflow: hidden;
 }
 
 .badgeIcon {
   width: 18px;
+
   height: 18px;
+
+  flex-shrink: 0;
+}
+
+.badgeLabel {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 }
 
 .button {
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
 
   width: 173px;
+
   min-height: 58px;
+
   margin-top: 24px;
 
   border-radius: 200px;
+
   background: var(--grey-green);
 
   color: var(--white);
+
   font-size: 16px;
+
   line-height: 1.5;
 
   transition: background-color 200ms ease;
@@ -172,57 +234,146 @@
 .button:focus-visible {
   background: var(--green-hover);
 }
-@media (max-width: 1100px) {
+
+/* Tablet */
+@media (max-width: 1199px) and (min-width: 768px) {
   .card {
-    grid-template-columns: 230px minmax(0, 1fr);
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    height: auto;
   }
 
   .imageWrapper {
-    min-height: 230px;
-  }
-}
+    width: 100%;
 
-@media (max-width: 700px) {
-  .card {
-    grid-template-columns: 1fr;
+    height: auto;
+
+    min-height: 0;
+
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
   }
 
-  .imageWrapper {
-    min-height: 260px;
+  .image {
+    object-fit: cover;
+
+    object-position: center;
   }
 
   .content {
-    gap: 0;
+    padding: 0;
+  }
+
+  .description {
+    white-space: normal;
   }
 
   .button {
-    margin-top: 24px;
+    align-self: center;
+
+    margin-top: 20px;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile */
+@media (max-width: 767px) {
   .card {
-    padding: 14px;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    height: auto;
+
+    padding: 16px;
+  }
+
+  .imageWrapper {
+    width: 100%;
+
+    height: auto;
+
+    min-height: 0;
+
+    aspect-ratio: 16 / 10;
+  }
+
+  .content {
+    width: 100%;
+
+    padding: 0;
   }
 
   .topRow {
     gap: 12px;
   }
 
-  .name,
+  .name {
+    font-size: 19px;
+
+    line-height: 1.3;
+  }
+
   .price {
     font-size: 18px;
   }
 
   .meta {
     gap: 10px;
+
+    font-size: 15px;
+  }
+
+  .description {
+    margin-top: 16px;
+
+    white-space: normal;
+
+    display: -webkit-box;
+
+    -webkit-box-orient: vertical;
+
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+  .details {
+    margin-top: 16px;
+
+    gap: 8px;
   }
 
   .badge {
-    padding: 0 12px;
+    min-width: 0;
+
+    height: 42px;
+
+    padding: 9px 12px;
+
+    font-size: 13px;
+  }
+
+  .badgeIcon {
+    width: 17px;
+
+    height: 17px;
   }
 
   .button {
     width: 100%;
+
+    min-height: 52px;
+
+    margin-top: 20px;
   }
 }
