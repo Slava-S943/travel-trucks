@@ -1,3 +1,4 @@
+````md
 # TravelTrucks
 
 TravelTrucks is a camper rental web application built with Next.js and TypeScript.
@@ -39,36 +40,47 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/Slava-S943/travel-trucks.git
-
-Navigate to the project directory:
-
 cd travel-trucks
+```
+````
 
 Install dependencies:
 
+```bash
 npm install
-Development
+```
+
+### Development
 
 Run the development server:
 
+```bash
 npm run dev
+```
 
 Open http://localhost:3000 in your browser.
 
-Production
+### Production
 
 Create a production build:
 
+```bash
 npm run build
+```
 
 Start the production server:
 
+```bash
 npm run start
-Available Routes
-/ — Home page
-/catalog — Camper catalog
-/catalog/[camperId] — Camper details page
-Backend API
+```
+
+## Available Routes
+
+- `/` — Home page
+- `/catalog` — Camper catalog
+- `/catalog/[camperId]` — Camper details page
+
+## Backend API
 
 The application uses the TravelTrucks Campers API.
 
@@ -80,26 +92,25 @@ API documentation:
 
 https://campers-api.goit.study/docs
 
-Scripts
+## Scripts
 
-Run the development server:
+- `npm run dev` — run the development server
+- `npm run lint` — run ESLint
+- `npm run build` — create a production build
+- `npm run start` — start the production server
 
-npm run dev
+## Deployment
 
-Run ESLint:
+The application is deployed on Vercel:
 
-npm run lint
+https://travel-trucks-omega-eight.vercel.app/
 
-Create a production build:
-
-npm run build
-
-Start the production server:
-
-npm run start
-Author
+## Author
 
 Slava S943
 
-GitHub: https://github.com/Slava-S943/travel-trucks
+GitHub: https://github.com/Slava-S943
+
+```
+
 ```
