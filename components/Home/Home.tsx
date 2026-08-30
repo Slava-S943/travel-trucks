@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -7,10 +8,11 @@ export default function Home() {
     <main className={styles.main}>
       <section className={styles.hero}>
         <Image
-          src="/hero.jpg"
+          src="/images/hero.jpg"
           alt="Camper van at sunset"
           fill
           priority
+          sizes="100vw"
           className={styles.image}
         />
 
