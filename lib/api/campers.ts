@@ -18,10 +18,6 @@ export interface GetCampersParams {
   form?: CamperForm;
   transmission?: Transmission;
   engine?: Engine;
-  tv?: boolean;
-  AC?: boolean;
-  kitchen?: boolean;
-  bathroom?: boolean;
 }
 
 export async function getCampers({
@@ -31,10 +27,6 @@ export async function getCampers({
   form,
   transmission,
   engine,
-  tv,
-  AC,
-  kitchen,
-  bathroom,
 }: GetCampersParams): Promise<CampersResponse> {
   const searchParams = new URLSearchParams({
     page: String(page),
@@ -55,22 +47,6 @@ export async function getCampers({
 
   if (engine) {
     searchParams.set("engine", engine);
-  }
-
-  if (tv) {
-    searchParams.set("tv", "true");
-  }
-
-  if (AC) {
-    searchParams.set("AC", "true");
-  }
-
-  if (kitchen) {
-    searchParams.set("kitchen", "true");
-  }
-
-  if (bathroom) {
-    searchParams.set("bathroom", "true");
   }
 
   const response = await fetch(`${API_URL}/campers?${searchParams.toString()}`);
