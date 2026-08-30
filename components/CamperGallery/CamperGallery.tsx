@@ -30,7 +30,7 @@ export default function CamperGallery({ gallery }: CamperGalleryProps) {
           alt="Camper"
           fill
           className={styles.mainImage}
-          sizes="638px"
+          sizes="(max-width: 1199px) 100vw, 638px"
           loading="eager"
         />
       </div>
@@ -55,8 +55,8 @@ export default function CamperGallery({ gallery }: CamperGalleryProps) {
                 alt=""
                 fill
                 className={styles.thumbnailImage}
-                sizes="140px"
-                loading={image.id === gallery[0]?.id ? "eager" : "lazy"}
+                sizes="(max-width: 765px) 50vw, 135px"
+                loading="lazy"
               />
             </button>
           );

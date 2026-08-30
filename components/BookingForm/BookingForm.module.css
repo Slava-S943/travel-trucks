@@ -18,7 +18,6 @@
 
 .title {
   margin: 0 0 8px;
-
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 20px;
@@ -28,7 +27,6 @@
 
 .subtitle {
   margin: 0 0 24px;
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
@@ -55,19 +53,15 @@
   box-sizing: border-box;
   width: 100%;
   height: 60px;
-
   border: 0;
   border-radius: 12px;
   padding: 18px;
-
   background: var(--inputs);
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   color: var(--main);
-
   outline: none;
 }
 
@@ -86,16 +80,12 @@
 
 .fieldError .label {
   display: block;
-
   position: absolute;
   top: -8px;
   left: 18px;
   z-index: 1;
-
   padding: 0 6px;
-
   background: var(--white);
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
@@ -113,16 +103,13 @@
   position: absolute;
   top: 30px;
   right: 18px;
-
   width: 20px;
   height: 20px;
-
   transform: translateY(-50%);
 }
 
 .errorMessage {
   margin: 4px 0 0;
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
@@ -134,22 +121,17 @@
   box-sizing: border-box;
   width: 100%;
   height: 56px;
-
   margin-top: 24px;
-
   border: 0;
   border-radius: 200px;
   padding: 16px 60px;
-
   background: var(--grey-green);
-
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.01em;
   color: var(--white);
-
   cursor: pointer;
 }
 
@@ -163,7 +145,6 @@
 
 .error {
   margin: 20px 0 0;
-
   font-family: var(--font-family);
   font-size: 16px;
   line-height: 150%;
@@ -175,19 +156,14 @@
   top: 24px;
   right: 24px;
   z-index: 1000;
-
   display: flex;
   align-items: flex-start;
   gap: 12px;
-
   min-width: 320px;
   max-width: 420px;
-
   padding: 16px 20px;
-
   border: 1px solid var(--grey-green);
   border-radius: 12px;
-
   background: var(--white);
   box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
 }
@@ -196,16 +172,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
-
   width: 24px;
   height: 24px;
-
   border-radius: 50%;
-
   background: var(--grey-green);
-
   color: var(--white);
   font-size: 16px;
   font-weight: 600;
@@ -213,7 +184,6 @@
 
 .successTitle {
   margin: 0;
-
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 16px;
@@ -223,7 +193,6 @@
 
 .successText {
   margin: 2px 0 0;
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
@@ -231,14 +200,11 @@
   color: var(--text);
 }
 
-/* Tablet */
 @media (max-width: 1199px) and (min-width: 768px) {
   .booking {
     height: auto;
     min-height: 384px;
-
     margin-top: 40px;
-
     padding: 36px 40px;
   }
 
@@ -248,16 +214,12 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 767px) {
   .booking {
     height: auto;
     min-height: 0;
-
     margin-top: 32px;
-
     padding: 24px 20px;
-
     border-radius: 16px;
   }
 
@@ -268,14 +230,12 @@
 
   .title {
     margin-bottom: 8px;
-
     font-size: 19px;
     line-height: 1.25;
   }
 
   .subtitle {
     margin-bottom: 20px;
-
     font-size: 15px;
   }
 
@@ -285,15 +245,12 @@
 
   .input {
     height: 56px;
-
     padding: 16px;
-
     font-size: 15px;
   }
 
   .fieldError .label {
     left: 16px;
-
     font-size: 13px;
   }
 
@@ -307,17 +264,13 @@
 
   .button {
     height: 52px;
-
     min-height: 52px;
-
     margin-top: 20px;
-
     padding: 14px 32px;
   }
 
   .error {
     margin-top: 16px;
-
     font-size: 14px;
   }
 
@@ -325,10 +278,8 @@
     top: 16px;
     right: 16px;
     left: 16px;
-
     min-width: 0;
     max-width: none;
-
     padding: 14px 16px;
   }
 }

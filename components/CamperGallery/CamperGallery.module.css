@@ -5,12 +5,9 @@
 
 .mainImageWrapper {
   position: relative;
-
   width: 100%;
   height: 505px;
-
   overflow: hidden;
-
   border-radius: 17px;
 }
 
@@ -22,28 +19,20 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
-
   margin-top: 27px;
 }
 
 .thumbnailWrapper {
   position: relative;
-
   width: 100%;
   min-width: 0;
-
   height: 144px;
-
   overflow: hidden;
-
   border: 0;
   border-radius: 16px;
   padding: 0;
-
   background: transparent;
-
   cursor: pointer;
-
   transform: scale(1);
   transition: transform 200ms ease;
 }
@@ -54,17 +43,15 @@
 }
 
 .thumbnailImage {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
-
 .thumbnailActive {
   outline: 2px solid var(--grey-green);
   outline-offset: -2px;
 }
-
-/* ========================================
-   TABLET: 768px - 1199px
-   ======================================== */
 
 @media (max-width: 1199px) {
   .gallery {
@@ -90,10 +77,6 @@
   }
 }
 
-/* ========================================
-   MOBILE: 0px - 767px
-   ======================================== */
-
 @media (max-width: 767px) {
   .gallery {
     width: 100%;
@@ -103,21 +86,18 @@
   .mainImageWrapper {
     width: 100%;
     aspect-ratio: 638 / 505;
-
     border-radius: 16px;
   }
 
   .thumbnails {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-
     margin-top: 20px;
   }
 
   .thumbnailWrapper {
     width: 100%;
     aspect-ratio: 135 / 144;
-
     border-radius: 14px;
   }
 }

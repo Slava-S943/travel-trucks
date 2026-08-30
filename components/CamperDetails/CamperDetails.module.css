@@ -1,11 +1,12 @@
 .main {
   width: 100%;
-  padding: 48px 64px 64px 63px;
+  padding: 120px 64px 64px 63px;
 }
 
 .details {
   width: 100%;
 }
+
 .topSection {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -29,7 +30,6 @@
   width: 100%;
   height: 304px;
   padding: 24px;
-
   border-radius: 16px;
   background: var(--inputs);
 }
@@ -37,7 +37,6 @@
 .vehicleDetails {
   width: 100%;
   padding: 24px;
-
   border-radius: 16px;
   background: var(--inputs);
 }
@@ -70,7 +69,6 @@
   display: flex;
   align-items: center;
   gap: 4px;
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
@@ -85,7 +83,6 @@
 
 .price {
   margin-top: 16px;
-
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 24px;
@@ -95,7 +92,6 @@
 
 .description {
   margin-top: 24px;
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
@@ -114,14 +110,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   height: 48px;
   padding: 12px 18px;
-
   border-radius: 100px;
   background: var(--badges);
   mix-blend-mode: multiply;
-
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
@@ -146,7 +139,6 @@
   display: flex;
   justify-content: space-between;
   gap: 24px;
-
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
@@ -164,24 +156,17 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 48px;
   align-items: start;
-
   margin-top: 72px;
 }
 
 .message {
   padding: 40px;
-
   text-align: center;
-
   font-family: var(--font-family);
   font-size: 16px;
   line-height: 150%;
   color: var(--text);
 }
-
-/* ========================================
-   TABLET: 768px - 1199px
-   ======================================== */
 
 @media (max-width: 1199px) {
   .main {
@@ -212,18 +197,13 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-
     margin-top: 56px;
   }
 }
 
-/* ========================================
-   MOBILE: 0px - 767px
-   ======================================== */
-
 @media (max-width: 767px) {
   .main {
-    padding: 24px 20px 40px;
+    padding: 88px 20px 40px;
   }
 
   .topSection {
@@ -240,7 +220,6 @@
   .camperInfo {
     height: auto;
     padding: 20px;
-
     border-radius: 16px;
   }
 
@@ -282,7 +261,6 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-
     margin-top: 40px;
   }
 
