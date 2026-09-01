@@ -58,16 +58,6 @@
   color: var(--green-hover);
 }
 
-@media (max-width: 1199px) {
-  .container {
-    padding: 20px 32px;
-  }
-
-  .navigation {
-    gap: 24px;
-  }
-}
-
 @media (max-width: 767px) {
   .header {
     height: 64px;
