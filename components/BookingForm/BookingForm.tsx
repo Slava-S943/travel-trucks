@@ -34,6 +34,11 @@ export default function BookingForm({ camperId }: BookingFormProps) {
     mutationFn: (bookingData: BookingRequest) =>
       createBookingRequest(camperId, bookingData),
     onSuccess: () => {
+      setForm({
+        name: "",
+        email: "",
+      });
+      setErrors({});
       setShowSuccessToast(true);
     },
   });
