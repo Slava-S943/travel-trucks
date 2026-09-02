@@ -44,11 +44,13 @@ export default function CamperReviews({ camperId }: CamperReviewsProps) {
     <section className={styles.reviews}>
       <h2 className={styles.title}>Reviews</h2>
 
-      <div className={styles.reviewsList}>
+      <ul className={styles.reviewsList}>
         {reviews.map((review) => (
-          <ReviewCard key={review.id} review={review} />
+          <li key={review.id}>
+            <ReviewCard review={review} />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

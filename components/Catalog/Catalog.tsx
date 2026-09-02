@@ -198,15 +198,13 @@ export default function Catalog() {
             ) : (
               <>
                 {campers.length > 0 && (
-                  <div className={styles.list}>
+                  <ul className={styles.list}>
                     {campers.map((camper, index) => (
-                      <CamperCard
-                        key={camper.id}
-                        camper={camper}
-                        priority={index === 0}
-                      />
+                      <li key={camper.id}>
+                        <CamperCard camper={camper} priority={index === 0} />
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 )}
 
                 {hasNextPage && (
