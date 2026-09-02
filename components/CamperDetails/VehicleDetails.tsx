@@ -11,47 +11,47 @@ export default function VehicleDetails({ camper }: VehicleDetailsProps) {
     <div className={styles.vehicleDetails}>
       <h2 className={styles.vehicleTitle}>Vehicle details</h2>
 
-      <div className={styles.amenities}>
+      <ul className={styles.amenities}>
         {camper.amenities.map((amenity) => (
-          <span key={amenity} className={styles.amenity}>
+          <li key={amenity} className={styles.amenity}>
             {amenity}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <div className={styles.divider} />
 
-      <div className={styles.specifications}>
+      <dl className={styles.specifications}>
         <div className={styles.specification}>
-          <span>Form</span>
-          <span>{camper.form}</span>
+          <dt>Form</dt>
+          <dd>{camper.form}</dd>
         </div>
 
         <div className={styles.specification}>
-          <span>Length</span>
-          <span>{camper.length}</span>
+          <dt>Length</dt>
+          <dd>{camper.length}</dd>
         </div>
 
         <div className={styles.specification}>
-          <span>Width</span>
-          <span>{camper.width}</span>
+          <dt>Width</dt>
+          <dd>{camper.width}</dd>
         </div>
 
         <div className={styles.specification}>
-          <span>Height</span>
-          <span>{camper.height}</span>
+          <dt>Height</dt>
+          <dd>{camper.height}</dd>
         </div>
 
         <div className={styles.specification}>
-          <span>Tank</span>
-          <span>{camper.tank}</span>
+          <dt>Tank</dt>
+          <dd>{camper.tank}</dd>
         </div>
 
         <div className={styles.specification}>
-          <span>Consumption</span>
-          <span>{camper.consumption}</span>
+          <dt>Consumption</dt>
+          <dd>{camper.consumption}</dd>
         </div>
-      </div>
+      </dl>
     </div>
   );
 }

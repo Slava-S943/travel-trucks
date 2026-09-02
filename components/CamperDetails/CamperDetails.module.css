@@ -104,6 +104,8 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 16px;
+  padding: 0;
+  list-style: none;
 }
 
 .amenity {
@@ -147,7 +149,8 @@
   color: var(--main);
 }
 
-.specification span:last-child {
+.specification dd {
+  margin: 0;
   text-align: right;
 }
 
