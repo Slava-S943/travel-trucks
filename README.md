@@ -1,48 +1,52 @@
-````md
 # TravelTrucks
 
-TravelTrucks is a camper rental web application built with Next.js and TypeScript.
+**TravelTrucks** is a responsive camper rental web application built with Next.js, React, and TypeScript. It allows users to browse campervans, filter listings, explore camper details, read customer reviews, view image galleries, and submit booking requests.
 
-The application allows users to browse available campervans, filter them by different criteria, view detailed camper information, read customer reviews, explore the image gallery, and submit a booking request.
+**[Live Demo](https://travel-trucks-omega-eight.vercel.app/)** · **[GitHub Repository](https://github.com/Slava-S943/travel-trucks)**
+
+## Preview
+
+<!-- Add a project screenshot here -->
 
 ## Features
 
+- Responsive layout for different screen sizes
 - Home page with a hero section and navigation to the camper catalog
-- Camper catalog with server-side filtering
-- Filtering by:
-  - location
-  - camper form
-  - engine
-  - transmission
-- Pagination with the `Load More` button
+- Camper catalog with filtering by location, camper form, engine, and transmission
+- Pagination with a **Load More** button
 - Camper details page
 - Customer reviews with five-star ratings
-- Camper image gallery
+- Camper image gallery with Swiper
 - Booking form with validation
 - Booking requests sent to the backend API
-- Success notification after successful booking
+- Success notification after a successful booking
 - Loading and error states for asynchronous requests
 
 ## Technologies
 
-- Next.js
-- React
-- TypeScript
-- TanStack Query
-- CSS Modules
-- Next.js App Router
+- **Next.js 16** — React framework and App Router
+- **React 19** — UI development
+- **TypeScript** — static typing
+- **TanStack Query** — asynchronous server-state management
+- **CSS Modules** — component-scoped styling
+- **React Icons** — icons
+- **Swiper** — interactive sliders and galleries
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js
+- npm
+
 ### Installation
 
-Clone the repository:
+Clone the repository and navigate to the project directory:
 
 ```bash
 git clone https://github.com/Slava-S943/travel-trucks.git
 cd travel-trucks
 ```
-````
 
 Install dependencies:
 
@@ -52,15 +56,15 @@ npm install
 
 ### Development
 
-Run the development server:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Production
+### Production Build
 
 Create a production build:
 
@@ -74,43 +78,21 @@ Start the production server:
 npm run start
 ```
 
-## Available Routes
+### Linting
 
-- `/` — Home page
-- `/catalog` — Camper catalog
-- `/catalog/[camperId]` — Camper details page
+Run ESLint:
 
-## Backend API
+```bash
+npm run lint
+```
 
-The application uses the TravelTrucks Campers API.
+## Project Goals
 
-API base URL:
-
-https://campers-api.goit.study
-
-API documentation:
-
-https://campers-api.goit.study/docs
-
-## Scripts
-
-- `npm run dev` — run the development server
-- `npm run lint` — run ESLint
-- `npm run build` — create a production build
-- `npm run start` — start the production server
-
-## Deployment
-
-The application is deployed on Vercel:
-
-https://travel-trucks-omega-eight.vercel.app/
+This project demonstrates frontend development skills, including responsive interface development, API integration, data filtering and pagination, asynchronous state management, and form validation.
 
 ## Author
 
-Slava S943
+**Yaroslav Sobchuk**
 
-GitHub: https://github.com/Slava-S943
-
-```
-
-```
+- [GitHub](https://github.com/Slava-S943)
+- [LinkedIn](https://www.linkedin.com/in/yaroslav-sobchuk/)
