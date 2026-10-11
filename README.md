@@ -1,12 +1,18 @@
 # TravelTrucks
 
-**TravelTrucks** is a responsive camper rental web application built with Next.js, React, and TypeScript. It allows users to browse campervans, filter listings, explore camper details, read customer reviews, view image galleries, and submit booking requests.
+TravelTrucks is a responsive camper rental web application built with Next.js, React, and TypeScript. It allows users to browse campervans, filter listings, explore camper details, read customer reviews, view image galleries, and submit booking requests.
 
-**[Live Demo](https://travel-trucks-omega-eight.vercel.app/)** · **[GitHub Repository](https://github.com/Slava-S943/travel-trucks)**
+[Live Demo](https://travel-trucks-omega-eight.vercel.app/) · [GitHub Repository](https://github.com/Slava-S943/travel-trucks)
 
 ## Preview
 
-<!-- Add a project screenshot here -->
+### Home Page
+
+![TravelTrucks home page](./screenshots/homepage.png)
+
+### Camper Catalog
+
+![TravelTrucks camper catalog](./screenshots/catalog.png)
 
 ## Features
 
@@ -92,7 +98,7 @@ This project demonstrates frontend development skills, including responsive inte
 
 ## Author
 
-**Yaroslav Sobchuk**
+Yaroslav Sobchuk
 
 - [GitHub](https://github.com/Slava-S943)
 - [LinkedIn](https://www.linkedin.com/in/yaroslav-sobchuk/)
